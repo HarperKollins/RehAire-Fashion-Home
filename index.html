@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>REHAIRE FASHION HOME | Exclusive Luxury Atelier</title>
+    <meta name="description" content="Comfort, style, and confidence in every piece. Premium ready-to-wear apparel and custom school collections tailored to fit your lifestyle, purpose, and budget." />
+    
+    <!-- Tailored Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS with custom theme configurations -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "matte-black": "#0D0D0D",
+                        "luxury-dark": "#121414",
+                        "brushed-gold": "#D4AF37",
+                        "premium-gold": "#C5A059",
+                        "off-white": "#E5E5E5",
+                        "subtle-grey": "#6E7169",
+                        "outline-variant": "#4d4635"
+                    },
+                    fontFamily: {
+                        serif: ["Playfair Display", "serif"],
+                        sans: ["Montserrat", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Ken Burns Zoom Effect */
+        @keyframes kenburns {
+            0% { transform: scale(1.0); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1.0); }
+        }
+        .animate-ken-burns {
+            animation: kenburns 25s ease-in-out infinite;
+        }
+
+        /* Diagonal Shine Reflection Wipe on Hover */
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+        }
+        .btn-shine:hover::after {
+            animation: shine 0.75s ease-in-out forwards;
+        }
+
+        /* Scroll-Driven Animations via Intersection Observer */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-1 { transition-delay: 100ms; }
+        .stagger-2 { transition-delay: 200ms; }
+        .stagger-3 { transition-delay: 300ms; }
+        .stagger-4 { transition-delay: 400ms; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D0D0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C5A059;
+        }
+    </style>
+</head>
+<body class="bg-matte-black text-off-white font-sans antialiased overflow-x-hidden selection:bg-brushed-gold/30 selection:text-white rounded-none">
+
+    <!-- Navigation Bar (Sticky & Glassmorphism) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5 flex justify-between items-center px-6 md:px-20 h-24 bg-black/70 backdrop-blur-md" id="navbar">
+        <a href="#" class="font-serif text-lg md:text-xl font-semibold tracking-[0.2em] text-white hover:text-brushed-gold transition-colors duration-300">
+            REHAIRE FASHION HOME
+        </a>
+        <div class="hidden md:flex gap-12 items-center">
+            <a class="text-sm font-medium tracking-[0.15em] uppercase hover:text-brushed-gold transition-colors duration-300" href="#story">Our Story</a>
+            <a class="text-sm font-medium tracking-[0.15em] uppercase hover:text-brushed-gold transition-colors duration-300" href="#collections">Collections</a>
+            <a class="text-sm font-medium tracking-[0.15em] uppercase hover:text-brushed-gold transition-colors duration-300" href="#pricing">Pricing</a>
+        </div>
+        <div class="flex items-center gap-6">
+            <button onclick="initiateGeneralInquiry()" class="hidden md:block border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase px-6 py-3 hover:bg-brushed-gold/10 hover:text-white transition-all duration-500 rounded-none btn-shine">
+                Inquire Now
+            </button>
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuToggle" class="md:hidden text-white hover:text-brushed-gold transition-colors">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileDrawer" class="fixed inset-0 z-40 bg-black/95 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 md:hidden">
+        <button id="mobileCloseButton" class="absolute top-6 right-6 text-white hover:text-brushed-gold transition-colors">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <a class="font-serif text-2xl tracking-widest hover:text-brushed-gold text-white" href="#story" onclick="toggleMobileMenu()">OUR STORY</a>
+        <a class="font-serif text-2xl tracking-widest hover:text-brushed-gold text-white" href="#collections" onclick="toggleMobileMenu()">COLLECTIONS</a>
+        <a class="font-serif text-2xl tracking-widest hover:text-brushed-gold text-white" href="#pricing" onclick="toggleMobileMenu()">PRICING GUIDE</a>
+        <button onclick="initiateGeneralInquiry(); toggleMobileMenu();" class="border border-brushed-gold text-brushed-gold font-bold tracking-[0.15em] uppercase px-10 py-4 hover:bg-brushed-gold/10 transition-all duration-300 rounded-none mt-8">
+            Consult a Tailor
+        </button>
+    </div>
+
+    <main>
+        <!-- Hero Section (The Hook) -->
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+            <div class="absolute inset-0 z-0">
+                <!-- Selected background image with slow Ken Burns scaling -->
+                <img class="w-full h-full object-cover opacity-35 animate-ken-burns grayscale-[15%]" 
+                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.56.jpeg" 
+                     alt="Rehaire premium athletic sportswear lookbook backdrop"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-matte-black via-transparent to-black/75"></div>
+            </div>
+            
+            <div class="relative z-10 text-center px-6 max-w-4xl flex flex-col items-center">
+                <span class="text-xs font-semibold tracking-[0.4em] text-brushed-gold uppercase mb-6 animate-[fadeInUp_1.2s_ease-out]">
+                    BESPOKE LUXURY ATELIER
+                </span>
+                <h1 class="font-serif text-4xl md:text-7xl text-white mb-6 leading-[1.15] font-bold tracking-tight max-w-5xl animate-[fadeInUp_1.5s_ease-out]">
+                    Comfort, Style, and Confidence in Every Piece.
+                </h1>
+                <div class="w-16 h-[1px] bg-brushed-gold my-8 animate-[fadeInUp_1.7s_ease-out]"></div>
+                <p class="text-sm md:text-lg text-off-white/80 max-w-2xl mx-auto leading-relaxed mb-12 font-light tracking-wide animate-[fadeInUp_1.9s_ease-out]">
+                    Premium ready-to-wear apparel and custom school collections tailored to fit your lifestyle, purpose, and budget.
+                </p>
+                <a class="border border-brushed-gold text-white font-bold text-xs tracking-[0.2em] uppercase px-10 py-5 hover:bg-brushed-gold hover:text-matte-black transition-all duration-500 rounded-none btn-shine animate-[fadeInUp_2.1s_ease-out]" 
+                   href="#collections">
+                    View Collections
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-off-white/40">
+                <span class="text-[9px] tracking-[0.2em] uppercase font-medium">Scroll Down</span>
+                <span class="material-symbols-outlined animate-bounce text-xl text-brushed-gold">keyboard_double_arrow_down</span>
+            </div>
+        </section>
+
+        <!-- Our Story & Brand Philosophy -->
+        <section class="py-32 px-6 md:px-20 bg-matte-black border-b border-white/5" id="story">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <!-- Asymmetric Image Layout -->
+                <div class="lg:col-span-6 reveal-element">
+                    <div class="relative border border-brushed-gold/20 p-3 bg-neutral-900/40">
+                        <img class="w-full h-[500px] object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.54.02.jpeg" 
+                             alt="Rehaire Custom Collections Model Shot"/>
+                        <div class="absolute top-0 left-0 w-full h-full bg-brushed-gold/5 pointer-events-none"></div>
+                    </div>
+                </div>
+                
+                <!-- Story Content -->
+                <div class="lg:col-span-6 space-y-8 reveal-element stagger-1">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase block">OUR PHILOSOPHY</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-white font-medium leading-tight">
+                        Bringing Premium Apparel Directly to Your Doorstep.
+                    </h2>
+                    <p class="text-sm md:text-base text-off-white/75 leading-relaxed font-light">
+                        Rehaire Fashion Home is a household fashion brand committed to bringing high-quality ready-to-wear clothing closer to you—exactly the way you want it, and at very affordable rates. We believe in a world where everyone can access clothing that fits their lifestyle, purpose, and budget—without compromise.
+                    </p>
+                    <p class="text-sm md:text-base text-off-white/75 leading-relaxed font-light">
+                        Whether it is bespoke sportswear for nursery, primary, and secondary schools, branded hoodies, customized casual wears, or institutional uniforms, we manage every single step of the sourcing, branding, and packaging to ensure the highest standards of international tailoring.
+                    </p>
+                    
+                    <div class="pt-6 grid grid-cols-2 gap-8 border-t border-white/5">
+                        <div>
+                            <h4 class="font-serif text-3xl text-brushed-gold font-bold">14+</h4>
+                            <p class="text-xs text-subtle-grey uppercase tracking-widest mt-1">Days Turnaround</p>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-3xl text-brushed-gold font-bold">500+</h4>
+                            <p class="text-xs text-subtle-grey uppercase tracking-widest mt-1">Pieces Max Capacity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Props Grid -->
+        <section class="py-32 px-6 md:px-20 bg-luxury-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-20 reveal-element">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">WHY REHAIRE</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Bespoke Production Guarantees</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Value Card 1 -->
+                    <div class="reveal-element stagger-1 border border-white/5 bg-matte-black p-10 hover:border-brushed-gold/30 hover:-translate-y-2 transition-all duration-500">
+                        <span class="material-symbols-outlined text-4xl text-brushed-gold mb-6 font-light">schedule</span>
+                        <h3 class="font-serif text-xl text-white mb-4">Fast Turnaround</h3>
+                        <p class="text-sm text-subtle-grey leading-relaxed font-light">
+                            Up to 500 pieces of sportswear delivered within 2 weeks with strict quality control to meet academic deadlines or event dates.
+                        </p>
+                    </div>
+                    <!-- Value Card 2 -->
+                    <div class="reveal-element stagger-2 border border-white/5 bg-matte-black p-10 hover:border-brushed-gold/30 hover:-translate-y-2 transition-all duration-500">
+                        <span class="material-symbols-outlined text-4xl text-brushed-gold mb-6 font-light">apparel</span>
+                        <h3 class="font-serif text-xl text-white mb-4">Premium Fabrics</h3>
+                        <p class="text-sm text-subtle-grey leading-relaxed font-light">
+                            Expert sourcing of materials including Lacoste, Dallene, Taffeta, spotted (Kpom-Kpom) sports fabrics, and Quality DJ materials.
+                        </p>
+                    </div>
+                    <!-- Value Card 3 -->
+                    <div class="reveal-element stagger-3 border border-white/5 bg-matte-black p-10 hover:border-brushed-gold/30 hover:-translate-y-2 transition-all duration-500">
+                        <span class="material-symbols-outlined text-4xl text-brushed-gold mb-6 font-light">palette</span>
+                        <h3 class="font-serif text-xl text-white mb-4">Custom Branding</h3>
+                        <p class="text-sm text-subtle-grey leading-relaxed font-light">
+                            We ensure your collections reflect your brand identity through tailored Flex, Flock, high-density DTF, and Plastisol ink printing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Collections -->
+        <section class="py-32 px-6 md:px-20 bg-matte-black" id="collections">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-20 reveal-element">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">SIGNATURE SELECTIONS</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-white font-medium">Bespoke Apparel Collections</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Collection Card 1 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-1">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" 
+                                     alt="School Sportswear & Tracksuits"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Sportswear & Tracksuits
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                P.E. wears, jerseys, joggers, matching athletic sets for school sports and events.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('School Sportswear & Tracksuits', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 2 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-2">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.59.jpeg" 
+                                     alt="Premium Hoodies"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Premium Hoodies
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Plain and custom branded heavyweight hoodies for students, staff, and events.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦3,000</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Premium Hoodies', '₦3,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 3 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-3">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.32.jpeg" 
+                                     alt="Friday Wears"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Friday Wears
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Customized casual T-shirts, polo shirts, and bespoke cultural Friday kaftans.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Friday Wears', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 4 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-4">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.32.jpeg" 
+                                     alt="Institutional Essentials"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Institutional Essentials
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Tailored lab coats, institutional uniforms, and high-durability apparel solutions.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦2,000</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Institutional Essentials', '₦2,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Pricing Matrix (Tabbed Toggle) -->
+        <section class="py-32 px-6 md:px-20 bg-luxury-dark" id="pricing">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 reveal-element">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">INVESTMENT GUIDE</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Bespoke Pricing Guide</h2>
+                    <p class="text-sm text-subtle-grey mt-2 font-light">Negotiable rates and flexible institutional payment plans are available.</p>
+                </div>
+
+                <!-- Animated Tab Toggle Buttons -->
+                <div class="flex justify-center mb-12 reveal-element stagger-1">
+                    <div class="inline-flex border border-white/10 p-1 bg-matte-black/60 relative">
+                        <button id="tabNigerian" onclick="switchPricingTab('nigerian')" class="px-8 py-3 text-xs font-semibold uppercase tracking-[0.15em] z-10 transition-colors duration-500 text-black bg-brushed-gold">
+                            Nigerian Materials
+                        </button>
+                        <button id="tabForeign" onclick="switchPricingTab('foreign')" class="px-8 py-3 text-xs font-semibold uppercase tracking-[0.15em] z-10 transition-colors duration-500 text-off-white hover:text-brushed-gold">
+                            Foreign Materials
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 1: Nigerian Materials Table -->
+                <div id="tableNigerian" class="transition-all duration-500 opacity-100 block reveal-element stagger-2">
+                    <div class="overflow-x-auto border border-white/5 bg-matte-black">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10 bg-neutral-900/50">
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-brushed-gold uppercase">Grade Level</th>
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-off-white uppercase">Investment Tier</th>
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-off-white uppercase text-right">Wholesale Price Range</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-white/5">
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Nursery Class</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">Custom tailoring tailored for younger toddlers</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦2,500 – ₦3,000</td>
+                                </tr>
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Primary School</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">Durable fabric blends for school sports & P.E.</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦3,500 – ₦4,000</td>
+                                </tr>
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Secondary School</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">High-durability base styling for sports & events</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦4,500 – ₦5,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Foreign Materials Table -->
+                <div id="tableForeign" class="transition-all duration-500 opacity-0 hidden">
+                    <div class="overflow-x-auto border border-white/5 bg-matte-black">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10 bg-neutral-900/50">
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-brushed-gold uppercase">Grade Level</th>
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-off-white uppercase">Investment Tier</th>
+                                    <th class="py-5 px-6 font-serif text-sm font-semibold tracking-wider text-off-white uppercase text-right">Wholesale Price Range</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-white/5">
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Nursery Class</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">Premium imported soft-touch fabrics</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦2,000 – ₦2,500</td>
+                                </tr>
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Primary School</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">Bespoke foreign stitching & standard fits</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦2,500 – ₦3,000</td>
+                                </tr>
+                                <tr class="hover:bg-neutral-900/30 transition-colors duration-300">
+                                    <td class="py-6 px-6 font-medium text-white">Secondary School</td>
+                                    <td class="py-6 px-6 text-subtle-grey font-light">Exclusive imported luxury sportswear fibers</td>
+                                    <td class="py-6 px-6 text-brushed-gold font-semibold text-right">₦3,000 – ₦3,500</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center reveal-element stagger-3">
+                    <p class="text-xs text-subtle-grey italic">
+                        *Minimum wholesale order: 50+ pieces. Negotiable rates and flexible institutional payment plans available.
+                    </p>
+                </div>
+
+                <!-- Call to Action Box -->
+                <div class="mt-16 border border-brushed-gold/20 bg-neutral-900/30 p-10 flex flex-col md:flex-row items-center justify-between gap-8 reveal-element stagger-4">
+                    <div>
+                        <h4 class="font-serif text-2xl text-brushed-gold font-medium mb-2">Interested in placing a bulk order?</h4>
+                        <p class="text-sm text-subtle-grey font-light leading-relaxed">
+                            Connect with us directly to discuss custom sizes, logos, fabric blends, and specialized credit options.
+                        </p>
+                    </div>
+                    <button onclick="initiateWholesaleInquiry()" class="bg-brushed-gold text-black hover:bg-premium-gold font-bold text-xs tracking-[0.15em] uppercase px-8 py-5 transition-all duration-300 rounded-none shrink-0 btn-shine">
+                        Request Bulk Quote
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bespoke Portfolio / Gallery Showcase -->
+        <section class="py-32 px-6 md:px-20 bg-matte-black border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-20 reveal-element">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">ATELIER GALLERY</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Rehaire in Action</h2>
+                    <p class="text-sm text-subtle-grey mt-2 font-light">Real photographs of our customized collections and production details.</p>
+                </div>
+
+                <!-- Premium Grid Gallery -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.56.jpeg" alt="Red tracksuit model detail"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" alt="Orange PE wear detail"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.59.jpeg" alt="Blue and yellow hoodies detail"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.32.jpeg" alt="Blue school polo detail"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.32.jpeg" alt="Grey sweatshirt collection detail"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.40.jpeg" alt="NYSC custom printed white shirts"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.27.jpeg" alt="Lime green tracksuits"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.08.jpeg" alt="P.E. uniform details on field"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Consultation / Call to Action -->
+        <section class="py-36 px-6 md:px-20 bg-luxury-dark border-t border-white/5 text-center flex flex-col items-center">
+            <div class="max-w-2xl reveal-element">
+                <span class="text-xs font-semibold tracking-[0.4em] text-brushed-gold uppercase mb-6 block">TAILOR CONSULTATION</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-white mb-8 leading-tight font-medium">Begin Your Bespoke Journey</h2>
+                <p class="text-sm md:text-base text-off-white/75 leading-relaxed mb-12 font-light">
+                    Connect with our lead tailor today for a personalized consultation on school collections, premium hoodies, or custom corporate branding projects.
+                </p>
+                <button onclick="initiateGeneralInquiry()" class="border border-white text-white hover:bg-white hover:text-black font-bold text-xs tracking-[0.2em] uppercase px-12 py-5 transition-all duration-500 rounded-none btn-shine">
+                    Contact via WhatsApp
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-matte-black border-t border-white/5 py-24 px-6 md:px-20 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-12">
+            <span class="font-serif text-2xl tracking-[0.25em] text-white">REHAIRE FASHION HOME</span>
+            
+            <div class="flex flex-wrap justify-center gap-10">
+                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#story">Our Story</a>
+                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#collections">Collections</a>
+                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#pricing">Pricing Guide</a>
+                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#" onclick="initiateGeneralInquiry(); return false;">Consultation</a>
+            </div>
+            
+            <div class="w-12 h-[1px] bg-white/10"></div>
+            
+            <p class="text-[10px] text-subtle-grey uppercase tracking-[0.15em] opacity-60">
+                &copy; 2026 REHAIRE FASHION HOME. EXCLUSIVE LUXURY ATELIER. ALL RIGHTS RESERVED.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for all anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile Menu Drawer Interactions
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const mobileCloseButton = document.getElementById('mobileCloseButton');
+
+        function toggleMobileMenu() {
+            if (mobileDrawer.classList.contains('translate-x-full')) {
+                mobileDrawer.classList.remove('translate-x-full');
+            } else {
+                mobileDrawer.classList.add('translate-x-full');
+            }
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        mobileCloseButton.addEventListener('click', toggleMobileMenu);
+
+        // Navbar slide-down border and background darken on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                nav.classList.add('bg-black/95');
+                nav.classList.remove('bg-black/70');
+                nav.classList.add('shadow-xl');
+                nav.classList.add('h-20');
+                nav.classList.remove('h-24');
+            } else {
+                nav.classList.add('bg-black/70');
+                nav.classList.remove('bg-black/95');
+                nav.classList.remove('shadow-xl');
+                nav.classList.add('h-24');
+                nav.classList.remove('h-20');
+            }
+        });
+
+        // Pricing Matrix Tab Switcher (Fade + Slide transition)
+        function switchPricingTab(mode) {
+            const tabNigerian = document.getElementById('tabNigerian');
+            const tabForeign = document.getElementById('tabForeign');
+            const tableNigerian = document.getElementById('tableNigerian');
+            const tableForeign = document.getElementById('tableForeign');
+
+            if (mode === 'nigerian') {
+                tabNigerian.classList.add('bg-brushed-gold', 'text-black');
+                tabNigerian.classList.remove('text-off-white', 'hover:text-brushed-gold');
+                tabForeign.classList.remove('bg-brushed-gold', 'text-black');
+                tabForeign.classList.add('text-off-white', 'hover:text-brushed-gold');
+
+                tableForeign.classList.add('opacity-0');
+                setTimeout(() => {
+                    tableForeign.classList.add('hidden');
+                    tableNigerian.classList.remove('hidden');
+                    setTimeout(() => {
+                        tableNigerian.classList.remove('opacity-0');
+                    }, 50);
+                }, 300);
+            } else {
+                tabForeign.classList.add('bg-brushed-gold', 'text-black');
+                tabForeign.classList.remove('text-off-white', 'hover:text-brushed-gold');
+                tabNigerian.classList.remove('bg-brushed-gold', 'text-black');
+                tabNigerian.classList.add('text-off-white', 'hover:text-brushed-gold');
+
+                tableNigerian.classList.add('opacity-0');
+                setTimeout(() => {
+                    tableNigerian.classList.add('hidden');
+                    tableForeign.classList.remove('hidden');
+                    setTimeout(() => {
+                        tableForeign.classList.remove('opacity-0');
+                    }, 50);
+                }, 300);
+            }
+        }
+
+        // Scroll Reveal Trigger (Intersection Observer)
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, {
+            root: null,
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.reveal-element').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // WhatsApp Routing Logic
+        const whatsappNumber = "+2347010561756";
+
+        function initiateWhatsAppOrder(collectionName, price) {
+            const message = `Hello Rehaire Fashion Home, I am viewing your website and would like to make an inquiry/place an order for the ${collectionName} collection.`;
+            const cleanNumber = whatsappNumber.replace('+', '').replace(/\s/g, '');
+            const encodedText = encodeURIComponent(message);
+            window.open(`https://wa.me/${cleanNumber}?text=${encodedText}`, '_blank');
+        }
+
+        function initiateWholesaleInquiry() {
+            const message = "Hello Rehaire Fashion Home, I am interested in placing a bulk wholesale order (50+ pieces) and would like to discuss fabric customization and payment options.";
+            const cleanNumber = whatsappNumber.replace('+', '').replace(/\s/g, '');
+            const encodedText = encodeURIComponent(message);
+            window.open(`https://wa.me/${cleanNumber}?text=${encodedText}`, '_blank');
+        }
+
+        function initiateGeneralInquiry() {
+            const message = "Hello Rehaire Fashion Home, I am viewing your website and would like to consult with your tailoring team about a custom apparel order.";
+            const cleanNumber = whatsappNumber.replace('+', '').replace(/\s/g, '');
+            const encodedText = encodeURIComponent(message);
+            window.open(`https://wa.me/${cleanNumber}?text=${encodedText}`, '_blank');
+        }
+    </script>
+</body>
+</html>
