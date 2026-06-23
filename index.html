@@ -109,7 +109,10 @@
 
     <!-- Navigation Bar (Sticky & Glassmorphism) -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5 flex justify-between items-center px-6 md:px-20 h-24 bg-black/70 backdrop-blur-md" id="navbar">
-        <a href="#" class="font-serif text-lg md:text-xl font-semibold tracking-[0.2em] text-white hover:text-brushed-gold transition-colors duration-300">
+        <a href="#" class="font-serif text-lg md:text-xl font-semibold tracking-[0.2em] text-white hover:text-brushed-gold transition-colors duration-300 flex items-center">
+            <div class="bg-white border border-brushed-gold/30 h-14 w-28 overflow-hidden flex items-center justify-center mr-4 rounded-none">
+                <img src="./rehaire-logo.png" alt="RehAire Logo" class="h-full w-full object-contain scale-[1.6] object-center">
+            </div>
             REHAIRE FASHION HOME
         </a>
         <div class="hidden md:flex gap-12 items-center">
@@ -224,7 +227,7 @@
                     <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Bespoke Production Guarantees</h2>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Value Card 1 -->
                     <div class="reveal-element stagger-1 border border-white/5 bg-matte-black p-10 hover:border-brushed-gold/30 hover:-translate-y-2 transition-all duration-500">
                         <span class="material-symbols-outlined text-4xl text-brushed-gold mb-6 font-light">schedule</span>
@@ -249,6 +252,14 @@
                             We ensure your collections reflect your brand identity through tailored Flex, Flock, high-density DTF, and Plastisol ink printing.
                         </p>
                     </div>
+                    <!-- Value Card 4 -->
+                    <div class="reveal-element stagger-4 border border-white/5 bg-matte-black p-10 hover:border-brushed-gold/30 hover:-translate-y-2 transition-all duration-500">
+                        <span class="material-symbols-outlined text-4xl text-brushed-gold mb-6 font-light">credit_score</span>
+                        <h3 class="font-serif text-xl text-white mb-4">Flexible Credit</h3>
+                        <p class="text-sm text-subtle-grey leading-relaxed font-light">
+                            Minimal advance payments and structured, flexible credit plans tailored specifically for returning customers and partner schools.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -261,20 +272,35 @@
                     <h2 class="font-serif text-3xl md:text-5xl text-white font-medium">Bespoke Apparel Collections</h2>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Collections Filter Tabs -->
+                <div class="flex justify-center mb-12 reveal-element stagger-1">
+                    <div class="inline-flex border border-white/10 p-1 bg-matte-black/60 relative">
+                        <button id="colTabAll" onclick="filterCollections('all')" class="px-6 py-3 text-xs font-semibold uppercase tracking-[0.15em] z-10 transition-colors duration-500 text-black bg-brushed-gold">
+                            All Collections
+                        </button>
+                        <button id="colTabKids" onclick="filterCollections('kids')" class="px-6 py-3 text-xs font-semibold uppercase tracking-[0.15em] z-10 transition-colors duration-500 text-off-white hover:text-brushed-gold">
+                            School & Kids
+                        </button>
+                        <button id="colTabAdult" onclick="filterCollections('adult')" class="px-6 py-3 text-xs font-semibold uppercase tracking-[0.15em] z-10 transition-colors duration-500 text-off-white hover:text-brushed-gold">
+                            Adult & Corporate
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="collectionsGrid">
                     <!-- Collection Card 1 -->
-                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-1">
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-1" data-category="kids">
                         <div>
                             <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
                                 <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
-                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.56.jpeg" 
                                      alt="School Sportswear & Tracksuits"/>
                             </div>
                             <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
-                                Sportswear & Tracksuits
+                                School Tracksuits
                             </h3>
                             <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
-                                P.E. wears, jerseys, joggers, matching athletic sets for school sports and events.
+                                Nursery, primary & secondary P.E. shirts, matching joggers, and track jackets.
                             </p>
                         </div>
                         <div>
@@ -282,77 +308,25 @@
                                 <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
                                 <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
                             </div>
-                            <button onclick="initiateWhatsAppOrder('School Sportswear & Tracksuits', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                            <button onclick="initiateWhatsAppOrder('School Tracksuits', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
                                 Order via WhatsApp
                             </button>
                         </div>
                     </div>
 
                     <!-- Collection Card 2 -->
-                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-2">
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-2" data-category="kids">
                         <div>
                             <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
                                 <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
-                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.59.jpeg" 
-                                     alt="Premium Hoodies"/>
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.16.jpeg" 
+                                     alt="Premium School Uniforms"/>
                             </div>
                             <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
-                                Premium Hoodies
+                                School Uniforms
                             </h3>
                             <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
-                                Plain and custom branded heavyweight hoodies for students, staff, and events.
-                            </p>
-                        </div>
-                        <div>
-                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
-                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
-                                <span class="text-sm font-semibold text-brushed-gold">₦3,000</span>
-                            </div>
-                            <button onclick="initiateWhatsAppOrder('Premium Hoodies', '₦3,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Collection Card 3 -->
-                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-3">
-                        <div>
-                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
-                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
-                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.32.jpeg" 
-                                     alt="Friday Wears"/>
-                            </div>
-                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
-                                Friday Wears
-                            </h3>
-                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
-                                Customized casual T-shirts, polo shirts, and bespoke cultural Friday kaftans.
-                            </p>
-                        </div>
-                        <div>
-                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
-                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
-                                <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
-                            </div>
-                            <button onclick="initiateWhatsAppOrder('Friday Wears', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
-                                Order via WhatsApp
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Collection Card 4 -->
-                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-4">
-                        <div>
-                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
-                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
-                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.32.jpeg" 
-                                     alt="Institutional Essentials"/>
-                            </div>
-                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
-                                Institutional Essentials
-                            </h3>
-                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
-                                Tailored lab coats, institutional uniforms, and high-durability apparel solutions.
+                                Custom tailored nursery, primary, and secondary shirts, dresses, and pinafores.
                             </p>
                         </div>
                         <div>
@@ -360,7 +334,163 @@
                                 <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
                                 <span class="text-sm font-semibold text-brushed-gold">₦2,000</span>
                             </div>
-                            <button onclick="initiateWhatsAppOrder('Institutional Essentials', '₦2,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                            <button onclick="initiateWhatsAppOrder('School Uniforms', '₦2,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 3 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-3" data-category="kids">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" 
+                                     alt="P.E. Wears & Sports Jerseys"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                P.E. Wears & Jerseys
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Colorful PE shirts, athletic shorts, jerseys, and school sports representative kits.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('PE Wears & Jerseys', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 4 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-4" data-category="kids">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.59.jpeg" 
+                                     alt="Branded School Hoodies"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                School Hoodies
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Fleece-lined matching hoodies and sweatshirts for student sports teams and clubs.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦3,000</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('School Hoodies', '₦3,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 5 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-1" data-category="adult">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.29.jpeg" 
+                                     alt="Friday Kaftans"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Friday Kaftans
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Custom embroidered traditional Kaftans in premium fabrics for cultural Fridays.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦5,000</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Friday Kaftans', '₦5,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 6 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-2" data-category="adult">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.20.jpeg" 
+                                     alt="Graduate Class Hoodies"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Graduate Hoodies
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Heavyweight custom graphics graduation/senior hoodies for colleges and teams.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦4,500</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Graduate Hoodies', '₦4,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 7 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-3" data-category="adult">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.34.jpeg" 
+                                     alt="Custom T-Shirts"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Friday T-Shirts
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                High-definition printed casual cotton Friday wear T-shirts and activewear.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦2,500</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Friday T-Shirts', '₦2,500')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
+                                Order via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 8 -->
+                    <div class="group border border-white/5 bg-neutral-900/20 p-4 transition-all duration-500 hover:border-brushed-gold/40 flex flex-col justify-between reveal-element stagger-4" data-category="adult">
+                        <div>
+                            <div class="w-full aspect-[3/4] overflow-hidden bg-neutral-950 mb-6 relative">
+                                <img class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                     src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.48.jpeg" 
+                                     alt="Corporate & Staff Polos"/>
+                            </div>
+                            <h3 class="font-serif text-lg text-white mb-2 group-hover:text-brushed-gold transition-colors duration-300">
+                                Corporate Polos
+                            </h3>
+                            <p class="text-xs text-subtle-grey mb-4 font-light leading-relaxed">
+                                Accented sports collars and custom chest-embroidery for staff and sports coaches.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between py-3 border-t border-white/5 mb-4">
+                                <span class="text-[10px] tracking-widest text-subtle-grey uppercase">Starting Rate</span>
+                                <span class="text-sm font-semibold text-brushed-gold">₦3,000</span>
+                            </div>
+                            <button onclick="initiateWhatsAppOrder('Corporate Polos', '₦3,000')" class="w-full border border-brushed-gold text-brushed-gold text-xs font-bold tracking-[0.15em] uppercase py-4 transition-all duration-500 hover:bg-brushed-gold hover:text-black rounded-none btn-shine">
                                 Order via WhatsApp
                             </button>
                         </div>
@@ -464,19 +594,173 @@
                 <div class="mt-16 border border-brushed-gold/20 bg-neutral-900/30 p-10 flex flex-col md:flex-row items-center justify-between gap-8 reveal-element stagger-4">
                     <div>
                         <h4 class="font-serif text-2xl text-brushed-gold font-medium mb-2">Interested in placing a bulk order?</h4>
-                        <p class="text-sm text-subtle-grey font-light leading-relaxed">
-                            Connect with us directly to discuss custom sizes, logos, fabric blends, and specialized credit options.
-                        </p>
+                            <button onclick="initiateWholesaleInquiry()" class="bg-brushed-gold text-black hover:bg-premium-gold font-bold text-xs tracking-[0.15em] uppercase px-8 py-5 transition-all duration-300 rounded-none shrink-0 btn-shine">
+                                Request Bulk Quote
+                            </button>
+                        </div>
                     </div>
-                    <button onclick="initiateWholesaleInquiry()" class="bg-brushed-gold text-black hover:bg-premium-gold font-bold text-xs tracking-[0.15em] uppercase px-8 py-5 transition-all duration-300 rounded-none shrink-0 btn-shine">
-                        Request Bulk Quote
-                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Delivery & Logistics Policy Section -->
+        <section class="py-32 px-6 md:px-20 bg-matte-black border-t border-white/5" id="delivery">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    <div class="lg:col-span-6 space-y-8 reveal-element">
+                        <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase block">SHIPPING & LOGISTICS</span>
+                        <h2 class="font-serif text-3xl md:text-5xl text-white font-medium leading-tight">
+                            Worldwide Delivery — Distance is Not a Barrier.
+                        </h2>
+                        <p class="text-sm md:text-base text-off-white/75 leading-relaxed font-light">
+                            At RehAire Fashion Home, we serve clients globally. Whether you are local or international, we ensure your bespoke orders are packaged with extreme care and shipped using premium freight services. Distance will never stand in the way of premium tailoring.
+                        </p>
+                        
+                        <div class="space-y-6 pt-4 border-t border-white/5">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-brushed-gold mt-1">public</span>
+                                <div>
+                                    <h4 class="font-serif text-lg text-white font-medium">Worldwide Shipping</h4>
+                                    <p class="text-xs text-subtle-grey font-light">Seamless international deliveries directly to schools or company headquarters.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-brushed-gold mt-1">rocket_launch</span>
+                                <div>
+                                    <h4 class="font-serif text-lg text-white font-medium">Express Courier Delivery</h4>
+                                    <p class="text-xs text-subtle-grey font-light">Collaborations with DHL, FedEx, and top-tier logistics providers to ensure fast transit.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-brushed-gold mt-1">inventory_2</span>
+                                <div>
+                                    <h4 class="font-serif text-lg text-white font-medium">Secure Protective Packaging</h4>
+                                    <p class="text-xs text-subtle-grey font-light">Each piece is individually checked, folded, branded, and moisture-protected before shipment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 reveal-element stagger-2">
+                        <div class="border border-brushed-gold/20 p-8 bg-neutral-900/40 space-y-6">
+                            <h3 class="font-serif text-2xl text-brushed-gold font-medium">Standard Delivery Turnaround</h3>
+                            <div class="divide-y divide-white/5">
+                                <div class="py-4 flex justify-between">
+                                    <span class="text-sm font-medium text-white">Sample Production</span>
+                                    <span class="text-sm text-brushed-gold">3 - 5 Days</span>
+                                </div>
+                                <div class="py-4 flex justify-between">
+                                    <span class="text-sm font-medium text-white">Wholesale (50 - 500 Pieces)</span>
+                                    <span class="text-sm text-brushed-gold">7 - 14 Days</span>
+                                </div>
+                                <div class="py-4 flex justify-between">
+                                    <span class="text-sm font-medium text-white">Large Institutional (500+ Pieces)</span>
+                                    <span class="text-sm text-brushed-gold">Contact for Timeline</span>
+                                </div>
+                                <div class="py-4 flex justify-between">
+                                    <span class="text-sm font-medium text-white">Transit / Shipping Time</span>
+                                    <span class="text-sm text-brushed-gold">Local: 1-3 Days | Global: 5-7 Days</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-subtle-grey italic">
+                                *Note: Lead times begin immediately after fabric selection and logo design approval. Urgently needed event sportswear is subject to express timelines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Customer Reviews Section -->
+        <section class="py-32 px-6 md:px-20 bg-luxury-dark border-t border-white/5" id="testimonials">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-20 reveal-element">
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">CLIENT SATISFACTION</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-white font-medium">Bespoke Reviews from Our Database</h2>
+                    <p class="text-sm text-subtle-grey mt-2 font-light">Feedback from leading academic institutions and corporate partners under our management.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="reveal-element stagger-1 border border-white/5 bg-matte-black p-10 flex flex-col justify-between hover:border-brushed-gold/30 transition-all duration-500">
+                        <div class="space-y-6">
+                            <div class="flex gap-1 text-brushed-gold">
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                            </div>
+                            <p class="text-sm text-off-white/80 leading-relaxed font-light italic">
+                                "Rehaire delivered over 300 pieces of PE sportswear for our nursery and primary classes within two weeks. The spotted sports fabrics are incredibly durable and comfortable. The flexible credit option made budgeting very easy for our school board."
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-neutral-800 flex items-center justify-center font-serif text-lg font-bold text-brushed-gold border border-brushed-gold/20">
+                                DG
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Divine Grace Schools</h4>
+                                <p class="text-[10px] text-subtle-grey uppercase tracking-widest">School Administration</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="reveal-element stagger-2 border border-white/5 bg-matte-black p-10 flex flex-col justify-between hover:border-brushed-gold/30 transition-all duration-500">
+                        <div class="space-y-6">
+                            <div class="flex gap-1 text-brushed-gold">
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                            </div>
+                            <p class="text-sm text-off-white/80 leading-relaxed font-light italic">
+                                "The custom graduation hoodies for our secondary seniors were a massive hit! The DTF branding is extremely crisp and holds up perfectly after multiple washes. The turnaround time was impressive, and the price was well within our budget."
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-neutral-800 flex items-center justify-center font-serif text-lg font-bold text-brushed-gold border border-brushed-gold/20">
+                                EC
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Excel College</h4>
+                                <p class="text-[10px] text-subtle-grey uppercase tracking-widest">Head of Sports & Student Affairs</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="reveal-element stagger-3 border border-white/5 bg-matte-black p-10 flex flex-col justify-between hover:border-brushed-gold/30 transition-all duration-500">
+                        <div class="space-y-6">
+                            <div class="flex gap-1 text-brushed-gold">
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                            </div>
+                            <p class="text-sm text-off-white/80 leading-relaxed font-light italic">
+                                "Switching our secondary school uniforms and sports uniforms to Rehaire has been a game-changer. The Lacoste and Dallene fabric they sourced is very premium, and the after-sales support is exceptional. We'll be ordering every year."
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-neutral-800 flex items-center justify-center font-serif text-lg font-bold text-brushed-gold border border-brushed-gold/20">
+                                OA
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Oakwood Academy</h4>
+                                <p class="text-[10px] text-subtle-grey uppercase tracking-widest">School Principal</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Bespoke Portfolio / Gallery Showcase -->
-        <section class="py-32 px-6 md:px-20 bg-matte-black border-t border-white/5">
+        <section class="py-32 px-6 md:px-20 bg-matte-black border-t border-white/5" id="gallery">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center max-w-2xl mx-auto mb-20 reveal-element">
                     <span class="text-xs font-semibold tracking-[0.3em] text-brushed-gold uppercase mb-4 block">ATELIER GALLERY</span>
@@ -484,39 +768,80 @@
                     <p class="text-sm text-subtle-grey mt-2 font-light">Real photographs of our customized collections and production details.</p>
                 </div>
 
-                <!-- Premium Grid Gallery -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1">
+                <!-- Gallery Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12 reveal-element stagger-1">
+                    <button onclick="filterGallery('all')" class="gallery-filter-btn px-6 py-2 text-xs font-semibold uppercase tracking-[0.15em] border border-brushed-gold text-black bg-brushed-gold transition-all duration-300">All</button>
+                    <button onclick="filterGallery('school')" class="gallery-filter-btn px-6 py-2 text-xs font-semibold uppercase tracking-[0.15em] border border-white/10 text-off-white hover:border-brushed-gold hover:text-brushed-gold transition-all duration-300">School Uniforms</button>
+                    <button onclick="filterGallery('pe')" class="gallery-filter-btn px-6 py-2 text-xs font-semibold uppercase tracking-[0.15em] border border-white/10 text-off-white hover:border-brushed-gold hover:text-brushed-gold transition-all duration-300">PE & Tracksuits</button>
+                    <button onclick="filterGallery('hoodies')" class="gallery-filter-btn px-6 py-2 text-xs font-semibold uppercase tracking-[0.15em] border border-white/10 text-off-white hover:border-brushed-gold hover:text-brushed-gold transition-all duration-300">Hoodies & Kaftans</button>
+                    <button onclick="filterGallery('corporate')" class="gallery-filter-btn px-6 py-2 text-xs font-semibold uppercase tracking-[0.15em] border border-white/10 text-off-white hover:border-brushed-gold hover:text-brushed-gold transition-all duration-300">Corporate & Polos</button>
+                </div>
+
+                <!-- Premium Grid Gallery (16 Images representing everything we do) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" id="galleryGrid">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1" data-gallery-cat="school">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.56.jpeg" alt="Red tracksuit model detail"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.16.jpeg" alt="Checkered red and white school uniform dress"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2" data-gallery-cat="school">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" alt="Orange PE wear detail"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.17.jpeg" alt="Primary school uniform detail"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3" data-gallery-cat="school">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.59.jpeg" alt="Blue and yellow hoodies detail"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.18.jpeg" alt="Divine Grace Schools striped blue uniform shirt"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4" data-gallery-cat="pe">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.32.jpeg" alt="Blue school polo detail"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.38.jpeg" alt="School P.E. sportswear sports shirts"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1" data-gallery-cat="pe">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.32.jpeg" alt="Grey sweatshirt collection detail"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.00.jpeg" alt="Orange PE kit matching sets"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2" data-gallery-cat="pe">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.52.40.jpeg" alt="NYSC custom printed white shirts"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.08.jpeg" alt="PE kit green/white on sports field"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3" data-gallery-cat="pe">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.27.jpeg" alt="Lime green tracksuits"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.56.jpeg" alt="Red tracksuits collection close up"/>
                     </div>
-                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4">
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4" data-gallery-cat="pe">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.08.jpeg" alt="P.E. uniform details on field"/>
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.27.jpeg" alt="Lime green joggers and track jacket"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1" data-gallery-cat="hoodies">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.17.jpeg" alt="Custom school class hoodies"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2" data-gallery-cat="hoodies">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.20.jpeg" alt="Bespoke graduation hoodies display"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3" data-gallery-cat="hoodies">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.28.jpeg" alt="Gold and black embroidered kaftan Friday wear"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4" data-gallery-cat="hoodies">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.29.jpeg" alt="Luxury traditional kaftans front design"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-1" data-gallery-cat="corporate">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.34.jpeg" alt="Customized printed Friday T-shirts"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-2" data-gallery-cat="corporate">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.48.jpeg" alt="Corporate staff polo shirt close up"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-3" data-gallery-cat="corporate">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.53.40.jpeg" alt="Sports team polos with custom chest branding"/>
+                    </div>
+                    <div class="relative overflow-hidden group aspect-square border border-white/5 reveal-element stagger-4" data-gallery-cat="pe">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                             src="./WhatsApp%20Unknown%202026-06-06%20at%2013.58.29/WhatsApp%20Image%202026-06-06%20at%2013.54.03.jpeg" alt="School sports team soccer jersey"/>
                     </div>
                 </div>
             </div>
@@ -538,21 +863,68 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-matte-black border-t border-white/5 py-24 px-6 md:px-20 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col items-center gap-12">
-            <span class="font-serif text-2xl tracking-[0.25em] text-white">REHAIRE FASHION HOME</span>
-            
-            <div class="flex flex-wrap justify-center gap-10">
-                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#story">Our Story</a>
-                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#collections">Collections</a>
-                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#pricing">Pricing Guide</a>
-                <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors" href="#" onclick="initiateGeneralInquiry(); return false;">Consultation</a>
+    <footer class="bg-matte-black border-t border-white/5 py-24 px-6 md:px-20 text-center md:text-left">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Brand & Logo -->
+            <div class="col-span-1 md:col-span-2 space-y-6 flex flex-col items-center md:items-start">
+                <a href="#" class="font-serif text-2xl tracking-[0.25em] text-white flex items-center">
+                    <div class="bg-white border border-brushed-gold/30 h-14 w-28 overflow-hidden flex items-center justify-center mr-4 rounded-none">
+                        <img src="./rehaire-logo.png" alt="RehAire Logo" class="h-full w-full object-contain scale-[1.6] object-center">
+                    </div>
+                    REHAIRE
+                </a>
+                <p class="text-xs text-subtle-grey font-light max-w-sm leading-relaxed text-center md:text-left">
+                    Exclusive luxury atelier producing high-quality ready-to-wear apparel and custom school collections tailored to fit your lifestyle, purpose, and budget.
+                </p>
+                <div class="flex gap-6">
+                    <a href="https://fb.watch/HWb6HOxo_C/" target="_blank" class="text-subtle-grey hover:text-brushed-gold transition-colors duration-300" title="Facebook">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/rehaire?igsh=cWhjZWxmYWs4bHl0&utm_source=qr" target="_blank" class="text-subtle-grey hover:text-brushed-gold transition-colors duration-300" title="Instagram">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://vt.tiktok.com/ZSCdsyNUv/" target="_blank" class="text-subtle-grey hover:text-brushed-gold transition-colors duration-300" title="TikTok">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.74-.22-.2-.43-.43-.64-.67-.07 3.26-.03 6.52-.05 9.77-.07 1.72-.53 3.47-1.56 4.84-1.34 1.79-3.56 2.89-5.8 2.82-2.82.02-5.56-1.71-6.67-4.29-1.28-2.92-.35-6.51 2.2-8.47 1.34-1.04 3.06-1.5 4.75-1.27.02 1.38.01 2.75.01 4.12-.91-.29-1.93-.11-2.69.45-.88.63-1.26 1.77-1.02 2.82.26 1.18 1.37 2.06 2.58 2.02 1.49.03 2.76-1.12 2.87-2.6.03-3.69.02-7.39.02-11.08z"/></svg>
+                    </a>
+                    <a href="https://x.com/rehairehome?s=11" target="_blank" class="text-subtle-grey hover:text-brushed-gold transition-colors duration-300" title="X (Twitter)">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
             </div>
-            
-            <div class="w-12 h-[1px] bg-white/10"></div>
-            
+
+            <!-- Navigation Links -->
+            <div class="col-span-1 space-y-6 flex flex-col items-center md:items-start">
+                <h4 class="text-xs font-semibold tracking-[0.2em] text-white uppercase">Explorer</h4>
+                <div class="flex flex-col gap-4 text-center md:text-left">
+                    <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors duration-300" href="#story">Our Story</a>
+                    <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors duration-300" href="#collections">Collections</a>
+                    <a class="text-xs text-subtle-grey uppercase tracking-widest hover:text-brushed-gold transition-colors duration-300" href="#pricing">Pricing Guide</a>
+                </div>
+            </div>
+
+            <!-- Atelier Address -->
+            <div class="col-span-1 space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
+                <h4 class="text-xs font-semibold tracking-[0.2em] text-white uppercase">Our Atelier</h4>
+                <div class="space-y-4">
+                    <p class="text-xs text-subtle-grey font-light leading-relaxed">
+                        Plot 15, Atelier Avenue,<br>
+                        Victoria Island, Lagos,<br>
+                        Nigeria
+                    </p>
+                    <div class="w-12 h-[1px] bg-white/10 mx-auto md:mx-0"></div>
+                    <p class="text-xs text-brushed-gold font-medium">
+                        whatsapp: +234 701 056 1756
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-[10px] text-subtle-grey uppercase tracking-[0.15em] opacity-60">
                 &copy; 2026 REHAIRE FASHION HOME. EXCLUSIVE LUXURY ATELIER. ALL RIGHTS RESERVED.
+            </p>
+            <p class="text-[9px] text-subtle-grey/40 uppercase tracking-widest">
+                Tailored with comfort, style, and confidence.
             </p>
         </div>
     </footer>
@@ -687,6 +1059,73 @@
             const cleanNumber = whatsappNumber.replace('+', '').replace(/\s/g, '');
             const encodedText = encodeURIComponent(message);
             window.open(`https://wa.me/${cleanNumber}?text=${encodedText}`, '_blank');
+        }
+
+        // Collections Filter Logic
+        function filterCollections(category) {
+            const grid = document.getElementById('collectionsGrid');
+            const cards = grid.querySelectorAll('[data-category]');
+            const tabAll = document.getElementById('colTabAll');
+            const tabKids = document.getElementById('colTabKids');
+            const tabAdult = document.getElementById('colTabAdult');
+
+            // Reset active tabs classes
+            [tabAll, tabKids, tabAdult].forEach(tab => {
+                if (tab) {
+                    tab.classList.remove('bg-brushed-gold', 'text-black');
+                    tab.classList.add('text-off-white', 'hover:text-brushed-gold');
+                }
+            });
+
+            // Set active tab
+            if (category === 'all' && tabAll) {
+                tabAll.classList.add('bg-brushed-gold', 'text-black');
+                tabAll.classList.remove('text-off-white', 'hover:text-brushed-gold');
+            } else if (category === 'kids' && tabKids) {
+                tabKids.classList.add('bg-brushed-gold', 'text-black');
+                tabKids.classList.remove('text-off-white', 'hover:text-brushed-gold');
+            } else if (category === 'adult' && tabAdult) {
+                tabAdult.classList.add('bg-brushed-gold', 'text-black');
+                tabAdult.classList.remove('text-off-white', 'hover:text-brushed-gold');
+            }
+
+            // Filter items
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Gallery Filter Logic
+        function filterGallery(category) {
+            const grid = document.getElementById('galleryGrid');
+            if (!grid) return;
+            const items = grid.querySelectorAll('[data-gallery-cat]');
+            const buttons = document.querySelectorAll('.gallery-filter-btn');
+
+            // Reset button classes
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brushed-gold', 'text-black');
+                btn.classList.add('text-off-white', 'border-white/10', 'hover:border-brushed-gold', 'hover:text-brushed-gold');
+            });
+
+            // Set active button
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('bg-brushed-gold', 'text-black');
+                event.currentTarget.classList.remove('text-off-white', 'border-white/10', 'hover:border-brushed-gold', 'hover:text-brushed-gold');
+            }
+
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-gallery-cat') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
